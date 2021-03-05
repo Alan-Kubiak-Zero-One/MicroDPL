@@ -436,7 +436,7 @@ namespace DPL {
 
 	void DPLVM::input(void) {
 		num value;
-		std::cout << "Please input:";
+		std::cout << "Input:";
 		std::cin >> value;
 		ReturnArgument(value);
 	}
