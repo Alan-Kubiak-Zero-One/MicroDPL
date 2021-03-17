@@ -210,7 +210,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case MOV: {
+		case MOV: { // Copy data
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			switch (am2) {
 			case AM_RAM:
@@ -225,7 +225,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case ADD: {
+		case ADD: { // Add
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = op1 + op2;
@@ -233,7 +233,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case SUB: {
+		case SUB: { // Minus
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -244,7 +244,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case MUL: {
+		case MUL: { // Multiply
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = op1 * op2;
@@ -252,7 +252,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case DIV: {
+		case DIV: { // Divide
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -263,7 +263,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case MOD: {
+		case MOD: { // Mod
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -274,7 +274,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CE: {         // ==
+		case CE: { // ==
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = (op1 == op2) ? 1 : 0;
@@ -282,7 +282,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CLE: {        // <=
+		case CLE: { // <=
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -293,7 +293,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CGE: {        // >=
+		case CGE: { // >=
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -304,7 +304,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CL: {        // <
+		case CL: { // <
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -315,7 +315,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CG: {        // >
+		case CG: { // >
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			if (am1 == AM_STK && am2 == AM_STK) {
@@ -326,7 +326,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case CNE: {        // ~=
+		case CNE: { // ~=
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = (op1 != op2) ? 1 : 0;
@@ -334,7 +334,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case AND: {
+		case AND: { // And
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = ((op1 != 0) && (op2 != 0)) ? 1 : 0;
@@ -342,7 +342,7 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case OR: {
+		case OR: { // Or
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num op2 = getRealOperand(am2, AsmStackOperand2[IP]);
 			num result = ((op1 != 0) || (op2 != 0)) ? 1 : 0;
@@ -350,18 +350,18 @@ namespace DPL {
 			IP++;
 			break;
 		}
-		case NOT: {
+		case NOT: { // Not
 			num op1 = getRealOperand(am1, AsmStackOperand1[IP]);
 			num result = (op1 == 0) ? 1 : 0;
 			RamStackPush(result);
 			IP++;
 			break;
 		}
-		case JMP: {
+		case JMP: { // Jump without conditions
 			IP = (int)AsmStackOperand1[IP];
 			break;
 		}
-		case JF: {
+		case JF: { // Jump if false
 			num val = RamStackPop();
 			bool cond = val != 0;
 			if (cond) {
@@ -372,7 +372,7 @@ namespace DPL {
 			}
 			break;
 		}
-		case JT: {
+		case JT: { // Jump if true
 			num val = RamStackPop();
 			bool cond = val != 0;
 			if (cond) {
@@ -383,24 +383,24 @@ namespace DPL {
 			}
 			break;
 		}
-		case HLT: {
+		case HLT: { // Halt
 			return false;
 			break;
 		}
-		case ARG: {
+		case ARG: { // Push function argument, Push an argument addressing mode and data
 			RamStackPush(AsmStackOperand2[IP]);
 			RamStackPush(AsmStackOperand1[IP]);
 			IP++;
 			break;
 		}
-		case CALL: {
+		case CALL: { // Function call
 			std::string &functionName = FunctionCallTable[(int)AsmStackOperand1[IP]];
 			int argCount = (int)AsmStackOperand2[IP];
 			call(functionName, argCount);
 			IP++;
 			break;
 		}
-		case HAL: {
+		case HAL: { // Heap alloc request
 			int size = (int)AsmStackOperand1[IP];
 			RamHeapMalloc(size);
 			IP++;
